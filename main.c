@@ -14,7 +14,7 @@ int main(int argc, char **argv)
 	FILE *file = fopen(argv[1], "r");
 	ssize_t read;
 	size_t n = 0;
-	unsigned long int num, i;
+	long unsigned int num, i;
 	char *buffer = NULL, *endptr;
 
 	if (argc == 2 && *argv)
@@ -28,7 +28,7 @@ int main(int argc, char **argv)
 
 				for (i = 2; num % i != 0; i++)
 					;
-				printf("%li=%li*%li\n", num, num / i, i);
+				printf("%lu=%li*%lu\n", num, num / i, i);
 			}
 		}
 	}
