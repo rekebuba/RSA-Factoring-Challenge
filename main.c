@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-ssize_t getline(char **lineptr, size_t *n, FILE *stream);
+ssize_t getline(char **lineptr, size_t *n, FILE *file);
 
 /**
  * main - Factorize as many numbers as possible into
@@ -12,24 +12,22 @@ ssize_t getline(char **lineptr, size_t *n, FILE *stream);
  */
 int main(int argc, char **argv)
 {
-	ssize_t nread;
+	ssize_t read;
 	size_t len = 0;
-	char *buff = NULL;
-	FILE *stream = fopen(argv[1], "r");
-	long unsigned int num;
-	long unsigned int i;
+	char *buffer = NULL;
+	FILE *file = fopen(argv[1], "r");
+	long unsigned int num, i;
 
 	if (argc == 2 && *argv)
 	{
-		while ((nread = getline(&buff, &len, stream)) != -1)
+		while ((read = getline(&buffer, &len, file)) != -1)
 		{
-			buff[strlen(buff) - 1] = '\0';
-			if (strlen(buff) < 20)
+			buffer[strlen(buffer) - 1] = '\0';
+			if (strlen(buffer) < 20)
 			{
-				num = atol(buff);
+				num = atol(buffer);
 				for (i = 2; num % i != 0; i++)
-				{
-				}
+					;
 				printf("%lu=%lu*%lu\n", num, (num / i), i);
 			}
 		}

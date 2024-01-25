@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "gmp.h": "c"
+        "gmp.h": "c",
+        "factors": "c"
     }
 }
