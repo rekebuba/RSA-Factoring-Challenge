@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
+ssize_t getline(char **lineptr, size_t *n, FILE *stream);
 /**
  * main - Factorize as many numbers as possible
  * into a product of two smaller numbers.
@@ -14,7 +14,7 @@ int main(int argc, char **argv)
 	FILE *file = fopen(argv[1], "r");
 	ssize_t read;
 	size_t n = 0;
-	long unsigned int num, i;
+	unsigned long int num, i;
 	char *buffer = NULL, *endptr;
 
 	if (argc == 2 && *argv)
@@ -28,7 +28,7 @@ int main(int argc, char **argv)
 
 				for (i = 2; num % i != 0; i++)
 					;
-				printf("%lu=%li*%lu\n", num, num / i, i);
+				printf("%lu=%lu*%lu\n", num, num / i, i);
 			}
 		}
 	}
