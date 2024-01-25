@@ -1,7 +1,8 @@
+#define _GNU_SOURCE
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-ssize_t getline(char **lineptr, size_t *n, FILE *stream);
+
 /**
  * main - Factorize as many numbers as possible
  * into a product of two smaller numbers.
