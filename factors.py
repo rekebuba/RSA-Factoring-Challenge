@@ -2,7 +2,10 @@ import sys
 
 
 def main():
-    file = open(sys.argv[1], "r")
+    try:
+        file = open(sys.argv[1], "r")
+    except FileNotFoundError:
+        exit()
     for line in file:
         number = int(line.strip('\n'))
         a = 2
