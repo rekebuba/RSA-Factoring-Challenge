@@ -2,7 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
-bool is_prime(unsigned long int number);
+
+bool is_prime(unsigned long int num1, unsigned long int num2);
 ssize_t getline(char **lineptr, size_t *n, FILE *stream);
 /**
  * main - Factorize as many numbers as possible
@@ -30,7 +31,7 @@ int main(int argc, char **argv)
 		{
 			num = strtoul(buffer, &endptr, 10);
 
-			for (p = 2; num % p != 0 || !is_prime(p) || !is_prime(num / p); p++)
+			for (p = 2; num % p != 0 || !is_prime(p, num / p); p++)
 				;
 			printf("%lu=%lu*%lu\n", num, (num / p), p);
 		}
@@ -41,11 +42,11 @@ int main(int argc, char **argv)
 	return (0);
 }
 
-bool is_prime(unsigned long int num)
+bool is_prime(unsigned long int num1, unsigned long int num2)
 {
-    for (unsigned long int i = 2; i * i <= num; i++)
+    for (unsigned long int i = 2; i * i <= num1; i++)
     {
-        if (num % i == 0)
+        if (num1 % i == 0 || num2 % i == 0)
             return false;
     }
     return true;
