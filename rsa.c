@@ -144,6 +144,7 @@ bool miller_rabin(unsigned long long int num, int k)
         {
             return false;
         }
+        printf("%lli\n", d);
     }
 
     return true;
