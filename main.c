@@ -21,11 +21,14 @@ int main(int argc, char **argv)
 		while (read = getline(&buffer, &n, file) != -1)
 		{
 			buffer[strlen(buffer) - 1] = '\0';
-			num = strtoull(buffer, &endptr, 10);
+			if (strlen(buffer) < 20)
+			{
+				num = strtoull(buffer, &endptr, 10);
 
-			for (i = 2; num % i != 0; i++)
-				;
-			printf("%lli=%lli*%lli\n", num, num / i, i);
+				for (i = 2; num % i != 0; i++)
+					;
+				printf("%lli=%lli*%lli\n", num, num / i, i);
+			}
 		}
 	}
 
