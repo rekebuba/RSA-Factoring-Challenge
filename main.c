@@ -1,23 +1,33 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <gmp.h>
 
+/**
+ * main - Factorize as many numbers as possible
+ * into a product of two smaller numbers.
+ * @argc: argument count
+ * @argv: argument passed
+ * Return: int
+ */
 int main(int argc, char **argv)
 {
-    mpz_t num;
-    FILE *file = fopen(argv[1], "r");
-    ssize_t read;
-    ssize_t n = 0;
-    char *endptr;
-    mpz_init(num);
-    char *buffer = NULL;
-    while (read = getline(&buffer, &n, file) != -1)
-    {
-        buffer[strlen(buffer) - 1] = '\0';
-        mpz_set_str(num, buffer, 10);
-        printf("%li\n", num);
-    }
+	FILE *file = fopen(argv[1], "r");
+	ssize_t read, n = 0;
+	unsigned long long int num, i;
+	char *buffer = NULL, *endptr;
 
-    return (0);
+	if (argc == 2 && *argv)
+	{
+		while (read = getline(&buffer, &n, file) != -1)
+		{
+			buffer[strlen(buffer) - 1] = '\0';
+			num = strtoull(buffer, &endptr, 10);
+
+			for (i = 2; num % i != 0; i++)
+				;
+			printf("%lli=%lli*%lli\n", num, num / i, i);
+		}
+	}
+
+	return (0);
 }
