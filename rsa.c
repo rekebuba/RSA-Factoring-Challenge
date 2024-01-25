@@ -1,38 +1,65 @@
 #include <stdio.h>
-#include <string.h>
 #include <stdlib.h>
-ssize_t getline(char **lineptr, size_t *n, FILE *stream);
+#include <string.h>
+#include <stdbool.h>
 
+bool is_prime(unsigned long int num);
+bool are_both_primes(unsigned long int num1, unsigned long int num2);
+ssize_t getline(char **lineptr, size_t *n, FILE *stream);
 /**
- * main - Factorize as many numbers as possible into
- * a product of two smaller numbers.
- * @argc: command line counter
- * @argv: argument
- * Return: 0 on success
+ * main - Factorize as many numbers as possible
+ * into a product of two smaller numbers.
+ * @argc: argument count
+ * @argv: argument passed
+ * Return: int
  */
 int main(int argc, char **argv)
 {
-	ssize_t nread;
-	size_t len = 0;
-	char *buff = NULL;
-	FILE *stream = fopen(argv[1], "r");
-	long unsigned int num;
-	long unsigned int i;
+    FILE *file = fopen(argv[1], "r");
+    if (!file || argc != 2)
+    {
+        return 1;
+    }
+    ssize_t read;
+    size_t n = 0;
+    unsigned long int num, i;
+    char *buffer = NULL, *endptr;
 
-	if (argc == 2 && *argv)
-	{
-		while ((nread = getline(&buff, &len, stream)) != -1)
-		{
-			buff[strlen(buff) - 1] = '\0';
-			if (strlen(buff) < 20)
-			{
-				num = atol(buff);
-				for (i = 2; num % i != 0; i++)
-				{
-				}
-				printf("%lu=%lu*%lu\n", num, (num / i), i);
-			}
-		}
-	}
-	return (0);
+    while ((read = getline(&buffer, &n, file)) != -1)
+    {
+        buffer[strlen(buffer) - 1] = '\0';
+        if (strlen(buffer) < 20)
+        {
+            num = strtoul(buffer, &endptr, 10);
+
+            for (i = 2; i <= num / 2; i++)
+            {
+                if (num % i == 0 && are_both_primes(i, (num / i)))
+                {
+                    printf("%lu=%lu*%lu\n", num, (num / i), i);
+                    break;
+                }
+            }          
+        }
+    }
+    fclose(file);
+    free(buffer);
+    return (0);
+}
+
+
+bool is_prime(unsigned long int num)
+{
+    for (unsigned long int i = 2; i * i <= num; i++)
+    {
+        if (num % i == 0)
+            return false;
+    }
+
+    return true;
+}
+
+bool are_both_primes(unsigned long int num1, unsigned long int num2)
+{
+    return is_prime(num1) && is_prime(num2);
 }
